@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulador de Futebol</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+
+<body class="bg-light text-dark">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Simulador</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#simular">Simular Partida</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+
+        <!-- HOME -->
+        <section id="home" class="mb-5 text-center">
+            <h1 class="display-5 fw-bold">Bem-vindo ao Simulador de Futebol</h1>
+            <p class="lead">Monte dois times, simule uma partida animada e descubra quem vence!</p>
+        </section>
+
+        <!-- SIMULAÇÃO -->
+        <section id="simular" class="mb-5">
+
+            <!-- Pré-jogo -->
+            <div id="pre-jogo" class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="h5 mb-0">Cadastro dos Times</h2>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="timeA" class="form-label">Time A</label>
+                                <select id="timeA" class="form-select" required></select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="timeB" class="form-label">Time B</label>
+                                <select id="timeB" class="form-select" required></select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success w-100 mt-3" id="iniciarJogo">Iniciar Jogo</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Escalação -->
+            <div id="escalação" class="mb-4" style="display:none;"></div>
+
+            <!-- Simulação -->
+            <div id="simulacaoJogo" class="text-center" style="display:none;">
+                <h2 class="mb-3">Partida em Andamento</h2>
+                <div class="display-1 fw-bold" id="timer">00:00</div>
+
+                <div class="my-4">
+                    <h3>
+                        <span id="nomeTimeA" class="text-primary">Time A</span>
+                        <span id="placarA" class="mx-2">0</span>
+                        x
+                        <span id="placarB" class="mx-2">0</span>
+                        <span id="nomeTimeB" class="text-danger">Time B</span>
+                    </h3>
+                </div>
+
+                <div class="progress mb-3" style="height: 20px;">
+                    <div id="barraTempo" class="progress-bar progress-bar-striped progress-bar-animated"
+                        style="width: 0%"></div>
+                </div>
+
+                <div class="card bg-light">
+                    <div class="card-body" id="painelMensagens">
+                        <p class="mb-0">⚽ Aguardando início da partida...</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger mt-4" onclick="encerrarPartidaUsuario()">Encerrar Partida</button>
+            </div>
+
+            <!-- Intervalo -->
+            <div id="intervalo" class="text-center mt-4" style="display:none;">
+                <h2>⏸ Intervalo</h2>
+                <p>Hora de respirar! Pronto para o segundo tempo?</p>
+                <button class="btn btn-primary" id="btnSegundoTempo" onclick="iniciarSegundoTempo()">Iniciar 2º
+                    Tempo</button>
+            </div>
+
+            <!-- Fim de Jogo -->
+            <div id="fimJogo" class="text-center mt-5" style="display:none;">
+                <h2>🏁 Fim de Jogo!</h2>
+                <p id="mensagemFinal">Obrigado por jogar!</p>
+                <button class="btn btn-outline-success mt-3" id="btnReiniciar" onclick="jogarNovamente()">Jogar
+                    Novamente</button>
+            </div>
+
+        </section>
+
+        <!-- SOBRE -->
+        <section id="sobre">
+            <h2 class="mb-3">Sobre o Projeto</h2>
+            <p>Este projeto é um MVP de Simulador de Partidas de Futebol inspirado em Elifoot e Brasfoot, com foco em
+                aprendizado, lógica e UX.</p>
+            <p>Feito por Rafael e Time como parte de uma experiência educacional.</p>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        Simulador de Futebol 2025 - Feito por Rafael e Time
+    </footer>
+
+    <script src="assets/js/times.js"></script>
+    <script src="assets/js/painelnarra.js"></script>
+    <script src="assets/js/motorPartida.js"></script>
+    <script src="assets/js/controleTempo.js"></script>
+    <script src="assets/js/destaque.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
