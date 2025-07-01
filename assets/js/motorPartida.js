@@ -1,8 +1,9 @@
+// motorPartida.js corrigido
+
 let intervaloPartida;
 let minutoAtual = 0;
 let tempoTotal = 90;
 let partidaPausada = false;
-segundoTempo = false;
 
 function simularEvento(timeA, timeB, onEvento) {
     if (partidaPausada) return;
@@ -10,6 +11,7 @@ function simularEvento(timeA, timeB, onEvento) {
     const probEvento = 0.2;
     if (Math.random() < probEvento) {
         const time = Math.random() < 0.5 ? timeA : timeB;
+
         if (!time || !Array.isArray(time.starters) || time.starters.length === 0) return;
 
         const jogador = time.starters[Math.floor(Math.random() * time.starters.length)];
@@ -19,7 +21,7 @@ function simularEvento(timeA, timeB, onEvento) {
 }
 
 function iniciarPartida(timeA, timeB, atualizarUI, finalizar) {
-    // Não resetar minutoAtual para manter o tempo corrente
+    minutoAtual = segundoTempo ? 45 : 0;
     partidaPausada = false;
     adicionarMensagem("🔔 Início do Jogo!", true);
 
@@ -30,7 +32,18 @@ function iniciarPartida(timeA, timeB, atualizarUI, finalizar) {
         atualizarUI(minutoAtual);
 
         simularEvento(timeA, timeB, (evento, time, jogador) => {
-            adicionarMensagem(`⚽ Evento: ${evento} pelo time ${time.name}, jogador ${jogador.name}`, false);
+            if (evento.includes("OVNI")) {
+                adicionarMensagem(evento, true);
+            } else {
+                adicionarMensagem(evento);
+            }
+
+            if (evento.includes("⚽")) {
+                if (time === timeA) placarA++;
+                else if (time === timeB) placarB++;
+
+                atualizarPlacar(placarA, placarB);
+            }
         });
 
         if (minutoAtual === 45 && !segundoTempo) {
@@ -38,11 +51,10 @@ function iniciarPartida(timeA, timeB, atualizarUI, finalizar) {
             pausarPartida();
             document.getElementById("simulacaoJogo").style.display = "none";
             document.getElementById("intervalo").style.display = "block";
-            segundoTempo = true; // marca que o intervalo já ocorreu
         }
 
         if (minutoAtual >= tempoTotal) {
-            adicionarMensagem("🏁 Fim do Jogo!", true);
+            adicionarMensagem("🏑 Fim do Jogo!", true);
             clearInterval(intervaloPartida);
             finalizar();
         }
@@ -77,5 +89,4 @@ function continuarPartida() {
 
 function finalizarPartida() {
     clearInterval(intervaloPartida);
-}
-
+} 
